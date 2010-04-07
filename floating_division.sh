@@ -10,8 +10,14 @@ ACCURACY=${3:-2}	# number of floating point digits
 
 result=$(( $a/$b ))
 
-if (( $a%$b != 0 )); then
+if (( $a%$b )); then
 	result=$result.$(( ($a%$b)*(10**$ACCURACY)/$b ))
 fi
 
+if echo $result | grep --color=always "-"; then
+	echo "$(basename $0): error: register overflow"
+	exit 1
+fi
+
 echo $result | sed "s/0*$//"
+exit 0
