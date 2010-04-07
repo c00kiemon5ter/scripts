@@ -6,15 +6,26 @@
 
 a=$1				# dividend
 b=$2				# divider
-ACCURACY=${3:-2}	# number of floating point digits
+dacc=2				# default accuracy
+acc=${3:-$dacc}		# accuracy - number of floating point digits
+
 
 result=$(( $a/$b ))
 
 if (( $a%$b )); then
-	result=$result.$(( ($a%$b)*(10**$ACCURACY)/$b ))
+	if (( $a<0 )); then
+		a=$((a-2*$a))
+	fi
+	if (( $b<0 )); then
+		b=$(($b-2*$b))
+	fi
+	if (( $acc<0 )); then
+		acc=$dacc
+	fi
+	result=$result.$(( ($a%$b)*(10**$acc)/$b ))
 fi
 
-if echo $result | grep "-"; then
+if echo $result | grep [.]- &>/dev/null; then
 	echo "$(basename $0): error: register overflow"
 	exit 1
 fi
