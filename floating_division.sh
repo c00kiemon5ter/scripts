@@ -14,7 +14,7 @@ if (( $a%$b )); then
 	result=$result.$(( ($a%$b)*(10**$ACCURACY)/$b ))
 fi
 
-if echo $result | grep --color=always "-"; then
+if echo $result | grep "-"; then
 	echo "$(basename $0): error: register overflow"
 	exit 1
 fi
