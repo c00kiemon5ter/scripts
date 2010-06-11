@@ -85,3 +85,5 @@ esac
 
 echo -ne "\033]0;$TERM\007"
 exit 0
+
+# vim: nospell

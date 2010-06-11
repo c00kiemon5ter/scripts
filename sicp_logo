@@ -1,0 +1,18 @@
+#!/bin/bash
+
+function print() {
+	cat << EOF
+	'-._                  ___.....___
+	    \`.__           ,-'        ,-.\`-,
+	        \`''-------'          ( o )  \`._        HAVE YOU READ
+	                              \`-'      \        YOUR SICP TODAY?
+	                                      . \ 
+	                               .         \  
+	                               \  --..,--'
+	   ................._           --...--,
+	                     \`-.._         _.-'
+	                          \`'-----''
+EOF
+}; print
+
+# vim: nospell
