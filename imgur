@@ -23,8 +23,7 @@
 # selection, which you can usually paste with a middle click.
 
 # API Key provided by Alan@imgur.com
-#apikey="b3625162d3418ac51a9ee805b1840452"
-apikey="5a86dc503660d0675d2ce33f9003c2b5"
+apikey="b3625162d3418ac51a9ee805b1840452"
 
 # function to output usage instructions
 function usage {
