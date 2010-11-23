@@ -2,7 +2,7 @@
 
 function usage() {
 	cat << EOF
-usage: "$(basename "$0")" [options <lang>] word
+usage: "$(basename "$0")" [options <lang>] word|"or phrase"
 	Options:
 	-f	<lang> translate from this language
 	-t	<lang> to this language
