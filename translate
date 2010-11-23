@@ -1,0 +1,29 @@
+#!/bin/bash
+
+function usage() {
+	cat << EOF
+usage: "$(basename "$0")" [options <lang>] word
+	Options:
+	-f	<lang> translate from this language
+	-t	<lang> to this language
+	-h	show this help message
+EOF
+}
+
+while getopts "f:t:h" opt
+do
+	case $opt in
+		f) f="$OPTARG" ;;
+		t) t="$OPTARG" ;;
+		h) usage && exit 0;;
+		*) usage && exit 1;;
+	esac
+done
+shift $((OPTIND-1))
+
+[ -z "$t" ] && t="en"
+text="$(echo "$1" | sed "s/\\s\+/%20/g")"
+
+wget -c --content-disposition -qO - "http://ajax.googleapis.com/ajax/services/language/translate?langpair=$f|$t&v=1.0&q=$text" | cut -d'"' -f6
+
+exit 0
