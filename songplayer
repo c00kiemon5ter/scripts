@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+[ -z "$1" ] && echo "songplayer: error: provide a file to play" && exit 1
+echo "playing song: $(basename $1)"
+mplayer "$1" -novideo &>/dev/null </dev/null &
