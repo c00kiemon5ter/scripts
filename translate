@@ -4,15 +4,22 @@ function usage() {
 	cat << EOF
 usage: "$(basename "$0")" [options <lang>] word|"or phrase"
 	Options:
+	-d	look up the definition of a word
 	-f	<lang> translate from this language
 	-t	<lang> to this language
 	-h	show this help message
 EOF
 }
 
-while getopts "f:t:h" opt
+function dict() {
+    curl -s dict://dict.org/d:$1 | perl -ne 's/\r//; last if /^\.$/; print if /^151/../^250/';
+	exit 0
+}   
+
+while getopts "d:f:t:h" opt
 do
 	case $opt in
+		d) dict $OPTARG ;;
 		f) f="$OPTARG" ;;
 		t) t="$OPTARG" ;;
 		h) usage && exit 0;;
