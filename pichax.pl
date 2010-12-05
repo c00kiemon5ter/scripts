@@ -1,4 +1,4 @@
-#!/usr/bin/perl 
+#!/usr/bin/env perl 
 
 # 20/12/07
 # pichax - a picture to colored ascii converter

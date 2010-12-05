@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 # A script to gracefully shutdown openbox, closing all apps
 # without the need to have extra permissions, or sudo entries

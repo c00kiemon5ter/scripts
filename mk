@@ -2,7 +2,7 @@
 
 # Makes directory then moves into it
 function mkcdr() { 
-	    mkdir -vp "$@" && cd "$_";
+	    mkdir -vp "$1" && cd "$_";
 }   
 # creates an archive from given directory
 function mktar() { 
@@ -15,13 +15,13 @@ function mktbz() {
 	    tar cvjf "${1%%/}.tar.bz2" "${1%%/}/";
 }
 
-if [ -f "$1" ]
+if [ -n "$1" ]
 then
 	case $1 in
-		dir)	mkcdr $@	;;
-		tar)	mktar $@	;;
-		tgz)	mktgz $@	;;
-		tbz)	mktbz $@	;;
+		dir)	shift; mkcdr "$1" ;;
+		tar)	shift; mktar "$1" ;;
+		tgz)	shift; mktgz "$1" ;;
+		tbz)	shift; mktbz "$1" ;;
 	esac
 else
 	echo "mk: error: $1 is not valid"

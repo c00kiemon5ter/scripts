@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 gxmessage -print "Are you sure you want to shut down your computer?" \
 	  -center -title "Confirm Action" \

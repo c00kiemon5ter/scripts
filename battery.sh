@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 rembat=`acpi | grep -o "[0-9]*%" | sed s/%//`
 state=`acpi | awk '{print $3}' | cut -d ',' -f 1 | tr 'A-Z' 'a-z'`

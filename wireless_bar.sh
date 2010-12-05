@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if ifconfig | grep -q wlan0 ; then
   essid=`iwconfig wlan0 | awk -F '"' '/ESSID/ {print $2}'`

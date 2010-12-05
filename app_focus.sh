@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 app_exec=$1
 app_wm_class="$(wmctrl -lx | grep -i $(echo $app_exec | sed 's/-bin$//') | cut -d" " -f4 | sed -e 's/\..*$//')"

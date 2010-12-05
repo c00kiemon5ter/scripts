@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 code=$(wmctrl -ixl | grep -i "$@" | awk '{print $1}')
 

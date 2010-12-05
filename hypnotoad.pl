@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
 
 # script by karabaja4
 # mail: karabaja4@archlinux.us

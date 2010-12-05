@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
 use Switch;
 use strict;
 use File::Basename;

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # c00kiemon5ter (ivan.kanak@gmail.com) ~ under c00kie License
 #
 # Division returning floating point results
