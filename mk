@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 # Makes directory then moves into it
-function mkcdr() { 
-	    mkdir -vp "$1" && cd "$_";
-}   
+#function mkcdr() { 
+#	    mkdir -vp "$1" && cd "$_";
+#}   
 # creates an archive from given directory
 function mktar() { 
 	    tar cvf  "${1%%/}.tar"     "${1%%/}/";
@@ -18,7 +18,7 @@ function mktbz() {
 if [ -n "$1" ]
 then
 	case $1 in
-		dir)	shift; mkcdr "$1" ;;
+#		dir)	shift; mkcdr "$1" ;;
 		tar)	shift; mktar "$1" ;;
 		tgz)	shift; mktgz "$1" ;;
 		tbz)	shift; mktbz "$1" ;;
