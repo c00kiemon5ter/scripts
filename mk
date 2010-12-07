@@ -6,13 +6,13 @@
 #}   
 # creates an archive from given directory
 function mktar() { 
-	    tar cvf  "${1%%/}.tar"     "${1%%/}/";
+	    tar cvf  "${1%%/}.tar"     "${1%%/}/" && exit 0
 }
 function mktgz() {
-	    tar cvzf "${1%%/}.tar.gz"  "${1%%/}/";
+	    tar cvzf "${1%%/}.tar.gz"  "${1%%/}/" && exit 0
 }
 function mktbz() {
-	    tar cvjf "${1%%/}.tar.bz2" "${1%%/}/";
+	    tar cvjf "${1%%/}.tar.bz2" "${1%%/}/" && exit 0
 }
 
 if [ -n "$1" ]
@@ -27,3 +27,4 @@ else
 	echo "mk: error: $1 is not valid"
 fi
 
+exit 1
