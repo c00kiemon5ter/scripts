@@ -18,8 +18,8 @@ quiet = false
 url_only = false
 help = false
 filename = 'pasta'
-want_xclip = true
-xclip_buf = ''
+want_xsel = true
+xsel_buf = ''
 
 # Pipe?
 begin
@@ -47,7 +47,7 @@ opts.each do |opt, arg|
 	when '--url'
 		url_only = true
 	when '--no-clip'
-		want_xclip = false
+		want_xsel = false
 	end
 end
 
@@ -61,9 +61,9 @@ if curl.empty?
 	$stderr.puts
 end
 
-xclip = %x{which xclip 2> /dev/null}
-if xclip.empty?
-	want_xclip = false
+xsel = %x{which xsel 2> /dev/null}
+if xsel.empty?
+	want_xsel = false
 end
 
 if (ARGV.size < 1 and (stdin.nil? or stdin.empty?)) or help or nocurl
@@ -73,13 +73,13 @@ if (ARGV.size < 1 and (stdin.nil? or stdin.empty?)) or help or nocurl
 	$stderr.puts '  -f, --filename  Filename to use when posting data'
 	$stderr.puts '                  from stdin'
 	$stderr.puts '  -n, --no-clip   Disable copying of URL to clipboard'
-	$stderr.puts '                  (this feature uses the xclip tool)'
+	$stderr.puts '                  (this feature uses the xsel tool)'
 	$stderr.puts
 	$stderr.puts '  You can supply a list of files or data via stdin (or both)'
 	$stderr.puts
 	$stderr.puts '  This script requires a copy of cURL in the path,'
 	$stderr.puts '  and will automatically copy the list of URLs to.'
-	$stderr.puts '  the X11 clipboard if the `xclip\' program is'
+	$stderr.puts '  the X11 clipboard if the `xsel\' program is'
 	$stderr.puts '  available in your PATH.'
 	Process.exit
 end
@@ -149,7 +149,7 @@ argv.each do |arg|
 	if output =~ /View file: <a href="v([A-Za-z0-9+\/]+)">/
 		id = $1
 		puts "Omploaded '#{arg}' to #{Url}v#{id}" if !quiet
-		xclip_buf += "#{Url}v#{id}\n" unless !want_xclip
+		xsel_buf += "#{Url}v#{id}\n" unless !want_xsel
 		wait = 5
 	elsif output =~ /Slow down there, cowboy\./
 		wait += 60
@@ -164,9 +164,9 @@ argv.each do |arg|
 
 end
 
-if want_xclip and !xclip_buf.empty?
-	p = IO.popen("xclip", "w+")
-	p.puts xclip_buf
+if want_xsel and !xsel_buf.empty?
+	p = IO.popen("xsel", "w+")
+	p.puts xsel_buf
 end
 
 if !quiet and !url_only
