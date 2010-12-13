@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+name="shot.png"
+
+function selectShot() {
+    which scrot &>/dev/null && scrot --select -q100 "$name" || echo "scrot missing"
+ }
+
+function shot() {
+    if $(which scrot &>/dev/null)
+    then
+        scrot -q100 "$name"
+    elif $(which import &>/dev/null)
+    then
+        import -window root "$name"
+    else
+        echo "abording"
+    fi
+}
+
+if [[ "$1" = "-s" ]]
+then
+    selectShot
+else
+    shot
+fi
+

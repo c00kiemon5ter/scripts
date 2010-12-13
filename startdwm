@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+while true
+do
+    dwm 2> ~/.dwm.err.log
+done
