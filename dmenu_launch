@@ -1,4 +1,17 @@
 #!/usr/bin/env bash
-dmenu_run -i -nb 'black' -nf 'white' -sb 'orange' -sf 'black'
-#$(dmenu_path | dmenu -i -nb 'black' -nf 'white' -sb 'orange' -sf 'black') && eval “exec $exe”
+#dmenu_run -i -nb 'black' -nf 'white' -sb 'orange' -sf 'black'
+
+font="-*-terminus-*-*-*-*-*-*-*-*-*-*-*-*"
+term=urxvtc
+normbgcolor="black"
+normfgcolor="white"
+selbgcolor="orange"
+selfgcolor="black"
+
+cmd=$(dmenu_path | dmenu -i -b -fn $font -nb $normbgcolor -nf $normfgcolor -sb $selbgcolor -sf $selfgcolor)
+
+case $cmd in
+    ncmpcpp|htop|vim)   exec $term -name $cmd -e $cmd ;;
+    *)                  exec $cmd
+esac
 
