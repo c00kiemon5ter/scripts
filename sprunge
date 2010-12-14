@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
 function fsprunge() {
-    curl -sF 'sprunge=<-' http://sprunge.us < $1 | xsel -i
-    xsel -o 
+    curl -sF 'sprunge=<-' http://sprunge.us < $1 | xclip -i
+    xclip -o 
 }   
 
 function isprunge() {
-	curl -sF 'sprunge=<-' http://sprunge.us | xsel -i
-	xsel -o
+	curl -sF 'sprunge=<-' http://sprunge.us | xclip -i
+	xclip -o
 }
 
 [[ -t 0 ]] && fsprunge $1 && exit 0
