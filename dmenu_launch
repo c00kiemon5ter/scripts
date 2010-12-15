@@ -3,6 +3,7 @@
 
 font="-*-terminus-*-*-*-*-*-*-*-*-*-*-*-*"
 term=urxvtc
+
 normbgcolor="black"
 normfgcolor="white"
 selbgcolor="orange"
