@@ -1,6 +1,20 @@
 #!/usr/bin/env bash
 
+# fix misbehaving Java applications
+wmname LG3D &
+
+# show time and vol
 while true
 do
-    dwm 2> ~/.dwm.err.log
+    np="$(mpc current)"
+    vol="$(amixer get PCM | tail -1 | sed -r "s:.+\[(.+%)].+:\1:g")"
+    date="$(date +"%a %d/%m %R")"
+    xsetroot -name "$np :: $vol :: $date"
+    sleep 10s
+done &
+
+while true
+do
+    dwm 2> $HOME/.dwm.err.log
 done
+
