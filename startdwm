@@ -3,18 +3,15 @@
 # fix misbehaving Java applications
 wmname LG3D &
 
-# show time and vol
+# show info on dwm bar
 while true
 do
-    np="$(mpc current)"
-    vol="$(amixer get PCM | tail -1 | sed -r "s:.+\[(.+%)].+:\1:g")"
-    date="$(date +"%a %d/%m %R")"
-    xsetroot -name "$np :: $vol :: $date"
-    sleep 10s
+    $HOME/.bin/dwm_status
+    sleep 5s
 done &
 
 while true
 do
-    dwm 2> $HOME/.dwm.err.log
+    dwm 2>/tmp/.dwm.log
 done
 
