@@ -2,10 +2,6 @@
 
 name="shot.png"
 
-function selectShot() {
-    which scrot &>/dev/null && scrot --select -q100 "$name" || echo "scrot missing"
- }
-
 function shot() {
     if $(which scrot &>/dev/null)
     then
@@ -14,14 +10,10 @@ function shot() {
     then
         import -window root "$name"
     else
-        echo "abording"
+        echo "printscreen: no available method: abording" >&2
+        exit 1
     fi
 }
 
-if [[ "$1" = "-s" ]]
-then
-    selectShot
-else
-    shot
-fi
-
+shot
+exit 0
