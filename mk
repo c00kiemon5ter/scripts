@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-# Makes directory then moves into it
-#function mkcdr() { 
-#	    mkdir -vp "$1" && cd "$_";
-#}   
 # creates an archive from given directory
 function mktar() { 
 	    tar cvf  "${1%%/}.tar"     "${1%%/}/" && exit 0
