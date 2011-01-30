@@ -1,16 +1,14 @@
 #!/usr/bin/env bash
 
 function fsprunge() {
-    curl -sF 'sprunge=<-' http://sprunge.us < $1 | xclip -i
-    xclip -o 
+    curl -sF 'sprunge=<-' http://sprunge.us < $1
 }   
 
 function isprunge() {
-	curl -sF 'sprunge=<-' http://sprunge.us | xclip -i
-	xclip -o
+	curl -sF 'sprunge=<-' http://sprunge.us
 }
 
-[[ -t 0 ]] && fsprunge $1 && exit 0
-[[ -t 1 ]] && isprunge && exit 0
+[[ -t 0 ]] && execfunc="fsprunge" || execfunc="isprunge"
 
-exit 1
+$execfunc $1 | tee -a /tmp/saved.urls | xclip -i && xclip -o
+
