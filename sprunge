@@ -1,14 +1,5 @@
 #!/usr/bin/env bash
 
-function fsprunge() {
-    curl -sF 'sprunge=<-' http://sprunge.us < $1
-}   
-
-function isprunge() {
-	curl -sF 'sprunge=<-' http://sprunge.us
-}
-
-[[ -t 0 ]] && execfunc="fsprunge" || execfunc="isprunge"
-
-$execfunc $1 | tee -a /tmp/saved.urls | xclip -i && xclip -o
+{ [[ -t 0 ]] && curl -sF 'sprunge=<-' http://sprunge.us <"$1" || curl -sF 'sprunge=<-' http://sprunge.us
+} | tee -a /tmp/saved.urls | xclip -i && xclip -o
 
