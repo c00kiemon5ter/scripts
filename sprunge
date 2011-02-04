@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
-{ [[ -t 0 ]] && curl -sF 'sprunge=<-' http://sprunge.us <"$1" || curl -sF 'sprunge=<-' http://sprunge.us
-} | tee -a /tmp/saved.urls | xclip -i && xclip -o
+echo "$({ [[ -t 0 ]] \
+    && curl -sF 'sprunge=<-' http://sprunge.us <"$1" \
+    || curl -sF 'sprunge=<-' http://sprunge.us
+}) $*" | tee -a /tmp/saved.urls | xargs echo -n | xclip -i && xclip -o && echo
 
