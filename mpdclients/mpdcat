@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-exec 3<>/dev/tcp/localhost/6600
-printf "%s\n%s\n" "$*" "close" >&3
-cat <&3
-
-# 3 lines, take that PiklesOnFire !
-# now give me cookies 8D 
