@@ -1,0 +1,17 @@
+#!/bin/bash
+
+[ "$1" = "help" ] && command="commands" || command="$*"
+
+# create connection
+exec 3<>/dev/tcp/localhost/6600
+
+# send command
+printf "%s\n%s\n" "$command" "close" >&3
+
+# read reply
+read -u 3 header # skip header
+while IFS="}" read -u 3 REPLY error; do
+    [ -z "$error" ] && printf ":: %s\n" "$REPLY" \
+                    || { printf "==>%s\n" "$error" && exit 1; }
+done
+

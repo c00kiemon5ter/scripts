@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+declare -A commands     # http://mpd.wikia.com/wiki/MusicPlayerDaemonCommands
+commands=(
+    [disableoutput]=1
+    [enableoutput]=1
+    [kill]=0            # FIXME: Returns nothing and exits immediately if user has permissions to the kill command, otherwise ACK
+    [update]=2
+    [status]=12         # FIXME: 20? no stable count, items ommited 
+    [play]=1
+    [pause]=1
+)
+
+# open connection
+exec 3<>/dev/tcp/localhost/6600
+coproc echo "$@" >&3 3>&1
+
+# validate command
+[ -z "${commands[$1]}" ] \
+    && printf "==> unknown command: %s\n" "$1" \
+    && exit 1
+
+# send command
+echo "$@" >&${COPROC[1]}
+
+# read reply
+read -u 3   # hide the header
+
+# print reply by line
+for (( i = 0; i < ${commands[$1]}; i++ )); do
+    IFS="}" read -u 3 REPLY error
+    [ -n "$error" ] && printf "==>%s\n" "$error" \
+                    || printf ":: %s\n" "$REPLY"
+done
+
+# exit with no error
+kill $COPROC_PID &>/dev/null || exit 0
+
