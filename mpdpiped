@@ -2,7 +2,12 @@
 # Ivan c00kiemon5ter Kanakarakis (ivan.kanak@gmail.com)
 # all cookies reserved (C) 
 
+# list commands
 [ "$1" = "help" ] && command="commands" || command="$*"
+
+# colored strings
+okmsg="$(tput setaf 12)::$(tput sgr0) %s\n"
+errmsg="$(tput setaf 1)==>$(tput sgr0)%s\n"
 
 # create connection
 exec 3<>/dev/tcp/localhost/6600
@@ -13,7 +18,7 @@ printf "%s\n%s\n" "$command" "close" >&3
 # read reply
 read -u 3 header # skip header
 while IFS="}" read -u 3 REPLY error; do
-    [ -z "$error" ] && printf ":: %s\n" "$REPLY" \
-                    || { printf "==>%s\n" "$error" >&2 && exit 1; }
+    [ -z "$error" ] && printf "$okmsg" "$REPLY" \
+                    || { printf "$errmsg" "$error" >&2 && exit 1; }
 done
 
