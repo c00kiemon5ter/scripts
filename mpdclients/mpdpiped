@@ -1,4 +1,6 @@
 #!/bin/bash
+# Ivan c00kiemon5ter Kanakarakis (ivan.kanak@gmail.com)
+# all cookies reserved (C) 
 
 [ "$1" = "help" ] && command="commands" || command="$*"
 
