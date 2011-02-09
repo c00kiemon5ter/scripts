@@ -58,7 +58,7 @@ print OUT '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http:
 <html>
 	<head>
 		<title>pichax by gorlist</title>
-		<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+		<meta http-equiv=\'Content-Type\' content=\'text/html; charset=utf-8\'>
 		<style type="text/css">
 			body{
 				background-color: #000000;
