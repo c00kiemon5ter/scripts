@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-np="$(mpdpiped currentsong | sed -nr 's/.*\s(Artist|Title): (.+)/\2/p' | sed ':a;N;$!ba;s/\n/ ~ /g')"
-vol="$(amixer get PCM | tail -1 | sed -r "s:.+\[(.+%)].+:\1:g")"
 date="$(date +"%a %d/%m %R")"
-xsetroot -name "$np :: $vol :: $date"
+vol="$(amixer get PCM | tail -1 | sed -r "s:.+\[(.+%)].+:\1:g")"
+wifi="$(wireless_status)"
+music="$(mpdpiped currentsong | sed -nr 's/.*\s(Artist|Title): (.+)/\2/p' | sed ':a;N;$!ba;s/\n/ ~ /g')"
+xsetroot -name "$music :: $wifi :: $vol :: $date"
