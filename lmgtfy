@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-for arg in $@
-do
-	argument="$argument+$arg"
-done
-
-echo http://lmgtfy.com?q=$argument
