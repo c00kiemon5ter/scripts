@@ -79,7 +79,7 @@ url=$(echo $response | sed -r 's/.*<original_image>(.*)<\/original_image>.*/\1/'
 deleteurl=$(echo $response | sed -r 's/.*<delete_page>(.*)<\/delete_page>.*/\1/')
 echo $url
 echo "Delete page: $deleteurl"
-printf "img: %s\t%s\n" "$deleteurl" "$*" >> /tmp/saved.urls
+printf "img: %s %s\n" "$deleteurl" "$*" >> /tmp/saved.urls
 
 # put the URL on the clipboard if we have xsel or xclip
 if [ $DISPLAY ]; then

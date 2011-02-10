@@ -2,5 +2,6 @@
 
 [[ -t 0 ]]  && url="$(curl -sF 'sprunge=<-' http://sprunge.us <"$1")" \
             || url=$(curl -sF 'sprunge=<-' http://sprunge.us)
-printf "txt: %s\t%s\n" "$url" "$*" | tee -a /tmp/saved.urls | xclip -i && xclip -o
+printf "txt:%s %s\n" "$url" "$*" >> /tmp/saved.urls
+xclip -i <<< "$url" && xclip -o
 
