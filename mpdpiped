@@ -7,7 +7,7 @@
                 errmsg="$(tput setaf 9)==>$(tput sgr0)%s\n"; } \
          || {   okmsg=":: %s\n"; errmsg="==>%s\n"; }
 
-{ exec 3<>/dev/tcp/localhost/6600; } &>/dev/null || { printf "$errmsg" " mpd is not running" >&2 && exit 1; }
+{ exec 3<>/dev/tcp/localhost/6600; } &>/dev/null || { printf "$errmsg" " mpd is not running" >&2; exit 1; }
 printf "%s\n%s\n" "$command" "close" >&3
 
 read -u 3 header
