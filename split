@@ -16,7 +16,7 @@ mkdir -p "$storedir"
 
 for (( i=0; i<$parts; i++)); do
     starttime=$endtime
-    endtime=$(( $starttime + duration ))
+    endtime=$(( $endtime + duration ))
     ffmpeg -sameq -i "$file" -ss $starttime -t $endtime "${storedir}/${filewosuff}_part_${i}.${filesuffix}"
 done
 
