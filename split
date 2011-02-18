@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+[[ -n $1 ]] || { echo "no argument. please provide a file" >&2; exit 1; }
+
+file="$1"
+parts=20
+duration=$(( 15 * 60 ))
+starttime=0
+endtime=0
+
+filewosuff="${file%.*}"
+filesuffix="${file##*.}"
+storedir="${filewosuff}_parts"
+
+mkdir -p "$storedir"
+
+for (( i=0; i<$parts; i++)); do
+    starttime=$endtime
+    endtime=$(( $starttime + duration ))
+    ffmpeg -sameq -i "$file" -ss $starttime -t $endtime "${storedir}/${filewosuff}_part_${i}.${filesuffix}"
+done
+
