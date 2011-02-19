@@ -17,6 +17,7 @@ mkdir -p "$storedir"
 for (( i=0; i<$parts; i++)); do
     starttime=$endtime
     endtime=$(( $endtime + duration ))
-    ffmpeg -sameq -i "$file" -ss $starttime -t $endtime "${storedir}/${filewosuff}_part_${i}.${filesuffix}"
+    ffmpeg -sameq -i "$file" -ss $starttime -t $endtime -vol 1280 \
+        -vcodec copy "${storedir}/${filewosuff}_part_${i}.${filesuffix}"
 done
 
