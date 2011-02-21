@@ -1,2 +1,4 @@
 #!/usr/bin/env bash
 mpdpiped currentsong | sed -nr '/ (Artist|Title)/H; ${g; s/.+: (.+)\n.+: (.+)/\1 ~ \2/; p;}'
+
+# mpdpiped currentsong | awk -F': ' '/ Artist/{artist=$3} /Title/{title=$3} END{print artist" ~ "title}'
