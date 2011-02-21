@@ -1,2 +1,2 @@
-#/usr/bin/env bash
-mpdpiped currentsong | sed -nr 's/.*\s(Artist|Title): (.+)/\2/p' | sed ':a;N;$!ba;s/\n/ ~ /g'
+#!/usr/bin/env bash
+mpdpiped currentsong | sed -nr '/ (Artist|Title)/H; ${g; s/.+: (.+)\n.+: (.+)/\1 ~ \2/; p;}'
