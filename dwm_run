@@ -4,14 +4,12 @@
 wmname LG3D &
 
 # show info on dwm bar
-while true
-do
+while true; do
     $HOME/.bin/dwm_status
     sleep 5s
 done &
 
-while true
-do
-    dwm 2>/tmp/dwm.log
+while true; do
+    dwm 2>/tmp/dwm.log || break
 done
 
