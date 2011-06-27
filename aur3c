@@ -3,3 +3,10 @@ exec 3<>/dev/tcp/aur.kmkeen.com/1819
 printf "%s\n" "$*" >&3
 IFS=$'\n' read -u 3 -d '' -a reply
 printf "%s\n" "${reply[@]}" | nl
+
+# commands:
+#   n       names
+#   d       descriptions
+#   nd      ^both
+#   $pkg    info
+#
