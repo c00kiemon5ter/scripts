@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+newline="$1"
+filein="$2"
+fileout="$3"
+counter=0
+
+while read -r; do
+    ((counter++))
+    if ! [[ $REPLY =~ ^# ]]; then
+        printf "%s\n" "$newline" "$REPLY" >> "$fileout"
+        break
+    fi
+    printf "%s\n" "$REPLY" >> "$fileout"
+done < "$filein"
+
+sed -n "$counter,$(wc -l < "$filein")p" "$filein" >> "$fileout"
+
+## or just use awk
+#
+# line="NEW STUFF HERE"
+# awk -v text="$line" '!/^#/ && !p {print text; p=1} 1' file
+#
+
