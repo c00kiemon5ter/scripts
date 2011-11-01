@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 
-urxvtc "$@"
-
-if (( $? != 0 )); then
-	urxvtd -q -o -f
-	urxvtc "$@"
-fi
+urxvtc "$@" || {
+    urxvtd -q -o -f
+    urxvtc "$@"
+}
 
