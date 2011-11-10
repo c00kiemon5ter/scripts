@@ -16,21 +16,25 @@ perror() {
     builtin exit 1
 }
 
+cleanup() {
+    pinfo "unmounting dev"
+    ${_umount} -l ${_root}/dev{/shm,/pts,}
+    pinfo "unmounting proc"
+    ${_umount} -l ${_root}/proc
+}
+
 (( UID )) && perror "you need to be root to run this script"
 
 pinfo "checking mountpoint"
 [[ -e "${_root}" ]] || perror "mountpoint doesn't exist: ${_root}"
+
+trap '{ cleanup; exit $?; }' INT TERM EXIT
 
 pinfo "mounting proc"
 ${_mount} -t proc none ${_root}/proc/
 pinfo "mounting dev"
 ${_mount} --rbind /dev ${_root}/dev/
 
-pinfo "change root to ${_root} .."
+pinfo "changing root to ${_root} .."
 ${_chroot} ${_root} ${_shell}
-
-pinfo "unmounting dev"
-${_umount} -l ${_root}/dev{/shm,/pts,}
-pinfo "unmounting proc"
-${_umount} -l ${_root}/proc
 
