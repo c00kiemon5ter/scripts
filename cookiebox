@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-builtin set -e
-
-_printf="/usr/bin/printf"
 _mount="/bin/mount"
 _umount="/bin/umount"
 _chroot="/usr/sbin/chroot"
@@ -11,11 +8,11 @@ _shell="/bin/bash"
 _root="/mnt/data/gentoo"
 
 pinfo() {
-    ${_printf} -- ":: %s\n" "$1"
+    builtin printf ":: %s\n" "$1"
 }
 
 perror() {
-    ${_printf} -- "--> %s\n" "$1" >&2
+    builtin printf "--> %s\n" "$1" >&2
     builtin exit 1
 }
 
@@ -29,7 +26,7 @@ ${_mount} -t proc none ${_root}/proc/
 pinfo "mounting dev"
 ${_mount} --rbind /dev ${_root}/dev/
 
-pinfo "chrooting into ${_root} .."
+pinfo "change root to ${_root} .."
 ${_chroot} ${_root} ${_shell}
 
 pinfo "unmounting dev"
