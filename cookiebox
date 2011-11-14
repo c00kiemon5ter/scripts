@@ -8,11 +8,11 @@ _shell="/bin/bash"
 _root="/mnt/data/gentoo"
 
 pinfo() {
-    builtin printf ":: %s\n" "$1"
+    builtin printf -- ":: %s\n" "$1"
 }
 
 perror() {
-    builtin printf "--> %s\n" "$1" >&2
+    builtin printf -- "--> %s\n" "$1" >&2
     builtin exit 1
 }
 
