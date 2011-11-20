@@ -2,5 +2,5 @@
 date="$(date +"%a %d/%m %R")"
 vol="$(amixer get PCM | sed -nr "$ s:.+\[(.+%)].+:\1:gp")"
 wifi="$(wireless_status)"
-music="$(deadbeef --nowplaying "%a ~ %t")"
+music="$(nowplaying)"
 xsetroot -name "$music :: $wifi :: $vol :: $date"

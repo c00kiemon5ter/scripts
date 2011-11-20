@@ -1,4 +1,14 @@
 #!/usr/bin/env bash
-mpdpiped currentsong | sed -nr '/ (Artist|Title)/H; ${g; s/.+: (.+)\n.+: (.+)/\1 ~ \2/; p;}'
+
+check_mpd() {
+    mpdpiped currentsong | sed -nr '/ (Artist|Title)/H; ${g; s/.+: (.+)\n.+: (.+)/\1 ~ \2/; p;}'
+    return ${PIPESTATUS[0]}
+}
+
+check_deadbeef() {
+    deadbeef --nowplaying "%a ~ %t"
+}
+
+check_mpd || check_deadbeef
 
 # mpdpiped currentsong | awk -F': ' '/ Artist/{artist=$3} /Title/{title=$3} END{print artist" ~ "title}'
