@@ -2,4 +2,6 @@
 test/
 bookmarks/
 gist-client/
+ircbots/
+o/
 *.swp
