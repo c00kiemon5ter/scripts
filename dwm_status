@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
+
 date="$(date +"%a %d/%m %R")"
 vol="$(amixer get PCM | sed -nr "$ s:.+\[(.+%)].+:\1:gp")"
 wifi="$(wireless_status)"
 music="$(nowplaying)"
-xsetroot -name "$music :: $wifi :: $vol :: $date"
+
+xsetroot -name "ê $music ¤ $wifi í $vol ¾ $date"
+
