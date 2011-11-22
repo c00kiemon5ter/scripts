@@ -10,6 +10,6 @@ while true; do
 done &
 
 while true; do
-    dwm 2>/tmp/dwm.log || break
+    /usr/local/bin/dwm 2>/tmp/dwm.log || break
 done
 
