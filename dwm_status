@@ -3,7 +3,12 @@
 date="$(date +"%a %d/%m %R")"
 vol="$(amixer get PCM | sed -nr "$ s:.+\[(.+%)].+:\1:gp")"
 wifi="$(wireless_status)"
-music="$(nowplaying)"
 
-xsetroot -name "ê $music ¤ $wifi í $vol ¾ $date"
+music="$(mpc current)"
+[[ -n "${music}" ]] && {
+    mstat="$(mpc | sed -rn '2s/\[([[:alpha:]]+)].*/\1/p')"
+    [[ "${mstat}" == "paused" ]] && mstat="ç" || mstat="æ"
+} || mstat="å"
+
+xsetroot -name "ê ${mstat} ${music:-[stopped]} ¤ ${wifi} í ${vol} ¾ ${date}"
 
