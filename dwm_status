@@ -11,4 +11,5 @@ music="$(mpc current)"
 } || mstat="å"
 
 xsetroot -name "ê ${mstat} ${music:-[stopped]} ¤ ${wifi} í ${vol} ¾ ${date}"
+sleep 5
 

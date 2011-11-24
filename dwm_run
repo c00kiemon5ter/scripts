@@ -3,13 +3,11 @@
 # fix misbehaving Java applications
 wmname LG3D &
 
-# show info on dwm bar
-while true; do
-    $HOME/.bin/dwm_status
-    sleep 5s
+while true
+do $HOME/.bin/dwm_status
 done &
 
-while true; do
-    /usr/local/bin/dwm 2>/tmp/dwm.log || break
+while true
+do /usr/local/bin/dwm 2>/tmp/dwm.log || break
 done
 
