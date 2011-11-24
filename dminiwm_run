@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# fix misbehaving Java applications
+wmname LG3D &
+
+while true
+do $HOME/.bin/dminiwm_status
+done | /usr/bin/dzen2 -h 18 -w 1920 -ta r -p \
+    -fn "-misc-tamsynmod-medium-r-normal--14-108-100-100-c-80-*-*" &
+
+while true
+do /usr/local/bin/dminiwm 2>/tmp/dminiwm.log || break
+done
+

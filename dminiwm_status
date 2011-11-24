@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+vol="$(amixer get PCM | sed -nr "$ s:.+\[(.+%)].+:\1:gp")"
+{ (( ${vol%\%} <= 20 )) && vstat="Á"; } || \
+{ (( ${vol%\%} <= 40 )) && vstat="À"; } || vstat="¶"
+
+wifi="$(wireless_status)" wstat="¤"
+
+music="$(mpc current)"
+[[ -n "${music}" ]] && {
+    mstat="$(mpc | sed -rn '2s/\[([[:alpha:]]+)].*/\1/p')"
+    [[ "${mstat}" == "paused" ]] && mstat="ç" || mstat="ê"
+} || mstat="å"
+
+date="$(date +"%a %d/%m %R")" dstat="¾"
+
+    printf "\
+^fg(#5e7175)%s ^fg(#d11783)%s \
+^fg(#ff420e)%s ^fg(#f68947)%s \
+^fg(#6cb4f4)%s ^fg(#1987b7)%s \
+^fg(#b3f44b)%s ^fg(#83c44b)%s \n"     \
+    "${mstat}" "${music:-[stopped]}"  \
+    "${wstat}" "${wifi}"              \
+    "${vstat}" "${vol}"               \
+    "${dstat}" "${date}"
+
+sleep 5
+
