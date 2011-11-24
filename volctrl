@@ -19,8 +19,9 @@ elif (( $current_vol > 67 ))
 then icon+="high"
 elif (( $current_vol > 33 ))
 then icon+="medium"
-else icon+="low" #if (( display_volume > 0 )); then 
+else icon+="low" #if (( display_volume > 0 )); then
 fi
 
-notify-send -i $icon -h int:value:$updated_vol -h string:synchronous:volume -t 1000 "${updated_vol}%"
+# uncomment to enable desktop notifications
+#notify-send -i $icon -h int:value:$updated_vol -h string:synchronous:volume -t 1000 "${updated_vol}%"
 
