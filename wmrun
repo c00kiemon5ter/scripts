@@ -1,14 +1,16 @@
 #!/usr/bin/env bash
 
+wm="${wm:-dminiwm}"
+
 # fix misbehaving Java applications
 wmname LG3D &
 
 while true
-do $HOME/.bin/dminiwm_status
+do "$HOME/.bin/${wm}.status"
 done | /usr/bin/dzen2 -h 18 -w 1920 -ta r -p \
     -fn "-misc-tamsynmod-medium-r-normal--14-108-100-100-c-80-*-*" &
 
 while true
-do /usr/local/bin/dminiwm 2>/tmp/dminiwm.log || break
+do "/usr/local/bin/${wm}" 2>"/tmp/${wm}.log" || break
 done
 
