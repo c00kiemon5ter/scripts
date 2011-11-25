@@ -1,16 +1,17 @@
 #!/usr/bin/env bash
 
-vol="$(amixer get PCM | sed -nr "$ s:.+\[(.+%)].+:\1:gp")"
-{ (( ${vol%\%} <= 20 )) && vstat="Á"; } || \
-{ (( ${vol%\%} <= 40 )) && vstat="À"; } || vstat="¶"
+mute="$(amixer get Master | sed -nr '$ s:.*\[(.+)]$:\1:p')"
+vol="$(amixer get PCM | sed -nr '$ s:.+\[(.+%)].+:\1:gp')"
+{ [[ ${mute} == "off" ]] && vstat="ë"; } || \
+{ (( ${vol%\%} <= 50  )) && vstat="ì"; } || vstat="í"
 
 wifi="$(wireless_status)" wstat="¤"
 
 music="$(mpc current)"
-[[ -n "${music}" ]] && {
-    mstat="$(mpc | sed -rn '2s/\[([[:alpha:]]+)].*/\1/p')"
-    [[ "${mstat}" == "paused" ]] && mstat="ç" || mstat="ê"
-} || mstat="å"
+{ [[ -z "${music}" ]] && mstat="å"; } || \
+{ mstat="$(mpc | sed -rn '2s/\[([[:alpha:]]+)].*/\1/p')"
+  [[ "${mstat}" == "paused" ]] && mstat="ç" || mstat="ê"
+}
 
 date="$(date +"%a %d/%m %R")" dstat="¾"
 
@@ -24,5 +25,5 @@ date="$(date +"%a %d/%m %R")" dstat="¾"
     "${vstat}" "${vol}"               \
     "${dstat}" "${date}"
 
-sleep 5
+sleep 3
 

@@ -8,7 +8,7 @@ wmname LG3D &
 while true
 do "$HOME/.bin/${wm}.status"
 done | /usr/bin/dzen2 -h 18 -w 1920 -ta r -e -p \
-    -fn "-misc-tamsynmod-medium-r-normal--14-108-100-100-c-80-*-*" &
+    -fn "-misc-tamsynmod-medium-r-normal--14-101-100-100-c-70-*-*" &
 
 while true
 do "/usr/local/bin/${wm}" 2>"/tmp/${wm}.log" || break
