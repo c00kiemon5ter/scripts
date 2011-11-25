@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 mute="$(amixer get Master | sed -nr '$ s:.*\[(.+)]$:\1:p')"
-vol="$(amixer get PCM | sed -nr '$ s:.+\[(.+%)].+:\1:gp')"
+vol="$(amixer get PCM | sed -nr '$ s:.*\[(.+%)].*:\1:p')"
 { [[ ${mute} == "off" ]] && vstat="ë"; } || \
 { (( ${vol%\%} <= 50  )) && vstat="ì"; } || vstat="í"
 
