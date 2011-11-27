@@ -25,5 +25,3 @@ date="$(date +"%a %d/%m %R")" dstat="¾"
     "${vstat}" "${vol}"               \
     "${dstat}" "${date}"
 
-sleep 3
-

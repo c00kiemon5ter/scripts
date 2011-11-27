@@ -1,16 +1,17 @@
 #!/usr/bin/env bash
 
-wm="${wm:-dminiwm}"
+# set the window manager
+: ${wm:=dminiwm}
 
 # fix misbehaving Java applications
-wmname LG3D &
+/usr/bin/wmname LG3D &
 
-while true
-do "$HOME/.bin/${wm}.status"
-done | /usr/bin/dzen2 -h 18 -w 1920 -ta r -e -p \
-    -fn "-misc-terminusmod.icons-medium-r-normal--12-120-72-72-c-60-*-*" &
+# display a statusbar
+while /usr/bin/sleep 1; do
+    "${HOME}/.bin/${wm}.status"
+done | /usr/bin/dzen2 -h 18 -w 1920 -ta r -e -p -fn \
+    "-misc-terminusmod.icons-medium-r-normal--12-120-72-72-c-60-*-*" &
 
-while true
-do "/usr/local/bin/${wm}" 2>"/tmp/${wm}.err.log" 1>"/tmp/${wm}.log" || break
-done
+# run the wm; log stdout and stderr
+"/usr/local/bin/${wm}" 2>"/tmp/${wm}.err.log" 1>"/tmp/${wm}.log"
 
