@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 
-# set the window manager
+chromium &
+urxvtd -q -o -f
+urxvtdc &
+urxvtdc &
+urxvtdc &
+
 : ${wm:=dminiwm}
 
-# fix misbehaving Java applications
-/usr/bin/wmname LG3D &
-
-# display a statusbar
-while /usr/bin/sleep 1; do
+while sleep 1; do
     "${HOME}/.bin/${wm}.status"
-done | /usr/bin/dzen2 -h 18 -w 1920 -ta r -e -p -fn \
+done | dzen2 -h 18 -w 1920 -ta r -e -p -fn \
     "-misc-terminusmod.icons-medium-r-normal--12-120-72-72-c-60-*-*" &
 
-# run the wm; log stdout and stderr
 "/usr/local/bin/${wm}" 2>"/tmp/${wm}.err.log" 1>"/tmp/${wm}.log"
 
