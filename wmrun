@@ -8,10 +8,14 @@ urxvtdc &
 
 : ${wm:=dminiwm}
 
-while sleep 1; do
-    "${HOME}/.bin/${wm}.status"
+while "${HOME}/.bin/${wm}.status"; do
+    sleep 1
 done | dzen2 -h 18 -w 1920 -ta r -e -p -fn \
     "-misc-terminusmod.icons-medium-r-normal--12-120-72-72-c-60-*-*" &
+#while sleep 1; do
+#    "${HOME}/.bin/${wm}.status"
+#done | dzen2 -h 18 -w 1920 -ta r -e -p -fn \
+#    "-misc-terminusmod.icons-medium-r-normal--12-120-72-72-c-60-*-*" &
 
 "/usr/local/bin/${wm}" 2>"/tmp/${wm}.err.log" 1>"/tmp/${wm}.log"
 
