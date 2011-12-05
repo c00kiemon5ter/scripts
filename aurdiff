@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# Diff PKGBUILD in current directory with the one in the AUR.
+# Thanks to Dave Reisner
+
+PKGBUILD=${1:-PKGBUILD}
+
+if [ ! -f "$PKGBUILD" -o ! -r "$PKGBUILD" ]; then
+  echo "error: could not open file: $PKGBUILD" >&2
+  exit 1
+fi
+
+eval $(grep '^pkgname=' "$PKGBUILD")
+if [ -z $pkgname ]; then
+  echo "error: no definition of \$pkgname in $PKGBUILD" >&2
+  exit 1
+fi
+
+curl -s "http://aur.archlinux.org/packages/$pkgname/PKGBUILD" \
+  | diff -u "$PKGBUILD" -
