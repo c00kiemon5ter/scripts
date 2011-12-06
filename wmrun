@@ -5,7 +5,7 @@ urxvtdc &
 urxvtdc &
 
 : "${ff:=/tmp/statusbar}"
-[[ -p "${ff}" ]] || /bin/mkfifo "${ff}" &
+[[ -e "${ff}" ]] || /bin/mkfifo -m 600 "${ff}" &
 
 while sleep 1; do
     "$HOME/.bin/statusbar.out"
