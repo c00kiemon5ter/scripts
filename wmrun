@@ -4,15 +4,8 @@ chromium &
 urxvtdc &
 urxvtdc &
 
-: "${ff:=/tmp/statusbar}"
-[[ -e "${ff}" ]] || /bin/mkfifo -m 600 "${ff}" &
-
-while sleep 1; do
-    "$HOME/.bin/statusbar.out"
-done > "${ff}" &
-
 /usr/bin/dzen2 -h 18 -w 1920 -ta r -e -p -fn \
-    "-misc-terminusmod.icons-medium-r-normal--12-120-72-72-c-60-*-*" < "${ff}" &
+    "-misc-terminusmod.icons-medium-r-normal--12-120-72-72-c-60-*-*" < "${ff:=/tmp/statusbar}" &
 
 : "${wm:=dminiwm}"
 "/usr/local/bin/${wm}" 2>"/tmp/${wm}.err.log" 1>"/tmp/${wm}.log"
