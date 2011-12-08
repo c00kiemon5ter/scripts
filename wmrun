@@ -8,5 +8,4 @@ urxvtdc &
     "-misc-terminusmod.icons-medium-r-normal--12-120-72-72-c-60-*-*" < "${ff:=/tmp/statusbar}" &
 
 : "${wm:=dminiwm}"
-"/usr/local/bin/${wm}" 2>"/tmp/${wm}.err.log" 1>"/tmp/${wm}.log"
-
+"/usr/local/bin/${wm}"
