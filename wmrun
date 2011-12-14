@@ -7,5 +7,5 @@ urxvtdc &
 /usr/bin/dzen2 -h 18 -w 1920 -ta r -e -p -fn \
     "-misc-terminusmod.icons-medium-r-normal--12-120-72-72-c-60-*-*" < "${ff:=/tmp/statusbar}" &
 
-: "${wm:=dminiwm}"
+: "${wm:=monsterwm}"
 while :; do "/usr/local/bin/${wm}" || break; done
