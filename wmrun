@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
 
-chromium &
-urxvtdc &
-urxvtdc &
-
-/usr/bin/dzen2 -h 18 -w 1920 -ta r -e -p -fn \
-    "-misc-terminusmod.icons-medium-r-normal--12-120-72-72-c-60-*-*" < "${ff:=/tmp/statusbar}" &
-
 : "${wm:=monsterwm}"
-while :; do "/usr/local/bin/${wm}" || break; done
+: "${ff:="/tmp/${wm}.fifo"}"
+
+while sleep 1; do statusbar
+done | dzen2 -h 18 -w 1720 -x 200 -ta r -e -p -fn "-misc-terminusmod.icons-medium-r-normal--12-120-72-72-c-60-*-*" &
+
+[[ -p $ff ]] || mkfifo -m 600 "$ff"
+while read -r
+do [[ $REPLY =~ ^([[:digit:]]+:[[:digit:]]+ ?)+$ ]] && sed -r 's/([^[:space:]]+):([[:digit:]]+)/ [ \2 ]/g' <<< "$REPLY"
+done < "$ff" | dzen2 -h 18 -w 200 -ta l -e -p -fn "-misc-terminusmod.icons-medium-r-normal--12-120-72-72-c-60-*-*" &
+
+while :; do "$wm" || break; done | tee -a "$ff"
