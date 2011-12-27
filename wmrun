@@ -4,11 +4,27 @@
 : "${ff:="/tmp/${wm}.fifo"}"
 
 while sleep 1; do statusbar
-done | dzen2 -h 18 -w 1720 -x 200 -ta r -e -p -fn "-misc-terminusmod.icons-medium-r-normal--12-120-72-72-c-60-*-*" &
+done | dzen2 -h 18 -w 1520 -x 400 -ta r -e -p -fn "-misc-terminusmod.icons-medium-r-normal--12-120-72-72-c-60-*-*" &
 
 [[ -p $ff ]] || mkfifo -m 600 "$ff"
-while read -r
-do [[ $REPLY =~ ^([[:digit:]]+:[[:digit:]]+ ?)+$ ]] && sed -r 's/([^[:space:]]+):([[:digit:]]+)/ [ \2 ]/g' <<< "$REPLY"
-done < "$ff" | dzen2 -h 18 -w 200 -ta l -e -p -fn "-misc-terminusmod.icons-medium-r-normal--12-120-72-72-c-60-*-*" &
+while read -r; do
+    [[ $REPLY =~ ^(([[:digit:]]+:)+[[:digit:]]+ ?)+$ ]] && read -ra desktops <<< "$REPLY" || continue
+    for desktop in "${desktops[@]}"; do
+        IFS=':' read -r d w m c <<< "$desktop"
+        case $d in
+            0) d="web" s=""   ;;
+            1) d="dev" s="::" ;;
+            2) d="foo" s="::" ;;
+        esac
+        ((c)) && f="#d11783" && case $m in
+            0) i="[]="  ;;
+            1) i="[$w]" ;;
+            2) i="TTT"  ;;
+            3) i="###"  ;;
+        esac || f="#5e7175"
+        ((w)) && r+="$s ^fg($f)$d $w^fg() " || r+="$s ^fg($f)$d^fg() "
+    done
+    printf "%s%s\n" "$r" "$i" && unset r
+done < "$ff" | dzen2 -h 18 -w 400 -ta l -e -p -fn "-misc-terminusmod.icons-medium-r-normal--12-120-72-72-c-60-*-*" &
 
 while :; do "$wm" || break; done | tee -a "$ff"
