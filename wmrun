@@ -10,7 +10,7 @@ done | dzen2 -h 18 -w 1520 -x 400 -ta r -e -p -fn "-misc-terminusmod.icons-mediu
 while read -r; do
     [[ $REPLY =~ ^(([[:digit:]]+:)+[[:digit:]]+ ?)+$ ]] && read -ra desktops <<< "$REPLY" || continue
     for desktop in "${desktops[@]}"; do
-        IFS=':' read -r d w m c <<< "$desktop"
+        IFS=':' read -r d w m c u <<< "$desktop"
         case $d in
             0) d="web" s=""   ;;
             1) d="dev" s="::" ;;
@@ -21,7 +21,8 @@ while read -r; do
             1) i="[M]" ;;
             2) i="[B]" ;;
             3) i="[G]" ;;
-        esac || f="#5e7175"
+        esac  || f="#5e7175"
+        ((u)) && f="#ff0000"
         ((w)) && r+="$s ^fg($f)$d $w^fg() " || r+="$s ^fg($f)$d^fg() "
     done
     printf "%s%s\n" "$r" "$i" && unset r
