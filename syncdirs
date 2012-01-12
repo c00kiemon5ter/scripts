@@ -1,0 +1,19 @@
+#!/bin/bash
+
+mlog="$HOME/.lsyncd/music.sync.log"
+plog="$HOME/.lsyncd/projects.sync.log"
+slog="$HOME/.lsyncd/scripts.sync.log"
+
+mdir="$HOME/music/"
+pdir="$HOME/projects/"
+sdir="$HOME/.bin/"
+
+smdir="$HOME/data/music/syncd_music/"
+spdir="$HOME/data/projects/syncd_projects/"
+ssdir="$HOME/data/projects/syncd_scripts/"
+
+pkill -u "$USER" lsyncd
+lsyncd --logfile "$mlog" -rsync "$mdir" "$smdir" &
+lsyncd --logfile "$plog" -rsync "$pdir" "$spdir" &
+lsyncd --logfile "$slog" -rsync "$sdir" "$ssdir" &
+
