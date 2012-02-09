@@ -1,0 +1,12 @@
+#!/bin/sh
+
+xidf="/tmp/.tabbed.xid"
+
+if test -r "$xidf" && pidof tabbed >/dev/null; then
+    read -r -- xid <"$xidf"
+    surf -e "$((xid))" "$1" &
+else
+    tabbed -d surf -e >"$xidf"
+    [ -n "$1" ] && surft "$1"
+fi
+
