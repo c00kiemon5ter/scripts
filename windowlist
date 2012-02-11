@@ -1,0 +1,26 @@
+#!/bin/sh
+
+exec &>/dev/null
+
+windowname="$(xdotool search --onlyvisible . | while read -r; do
+    xwininfo -id $REPLY | sed -n '/^xwininfo/s:.*"\(.\+\)".*:\1:p'
+done | sort | uniq | dmenu -p "Select window by name: " -i -fn \
+                    "-*-terminus-medium-r-*-*-12-*-*-*-*-*-*-*")"
+
+windowid="$(xdotool search --onlyvisible "$windowname")"
+idcount="$(wc -l <<EOF
+$windowid
+EOF
+)"
+
+if [ "$idcount" -eq 0 ]; then
+    xdotool search --onlyvisible "$windowname" windowactivate
+else
+    [ "$idcount" -gt 1 ] && windowid="$(dmenu -p "Select window id: " \
+                -i -fn "-*-terminus-medium-r-*-*-12-*-*-*-*-*-*-*" <<EOF
+$windowid
+EOF
+)"
+    xdotool windowactivate "$windowid"
+fi
+
