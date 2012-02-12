@@ -3,11 +3,12 @@
 exec &>/dev/null
 
 windowname="$(xdotool search --onlyvisible . | while read -r; do
+    [ "$WINDOWID" == "$REPLY" ] && continue
     xwininfo -id $REPLY | sed -n '/^xwininfo/s:.*"\(.\+\)".*:\1:p'
 done | sort | uniq | dmenu -p "Select window by name: " -i -fn \
                     "-*-terminus-medium-r-*-*-12-*-*-*-*-*-*-*")"
 
-windowid="$(xdotool search --onlyvisible "$windowname")"
+windowid="$(xdotool search --onlyvisible "$windowname" | grep -v "$WINDOWID")"
 idcount="$(wc -l <<EOF
 $windowid
 EOF
