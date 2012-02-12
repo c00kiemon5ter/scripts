@@ -24,3 +24,23 @@ EOF
     xdotool windowactivate "$windowid"
 fi
 
+# #!/bin/bash
+#
+# # titles as ids is problematic
+# # anything unescaped will break this (':? etc)
+#
+# declare -A wins
+#
+# while read -r id; do
+#     name="$(xprop -id $id | sed -n 's/WM_NAME(STRING) = "\(.*\)"/\1/p')"
+#     [[ -z "${wins["$name"]}" ]] && wins+=(["$name"]="$id") || wins["$name"]+=" $id"
+# done < <(xdotool search --onlyvisible .)
+#
+# sel="$(printf "%s\n" "${!wins[@]}" | dmenu -i)"
+#
+# ids=(${wins["$sel"]})
+# (( ${#ids[@]} > 1 )) && id="$(printf -- "%s\n" "${ids[@]}" | dmenu -i)" || id="${ids["${sel}"]}"
+#
+# xdotool windowactivate "$id"
+#
+
