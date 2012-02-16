@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# a script to convert chromium bookmarks
+# from json format to markdown
+
+[[ "$1" == "-h" || "$1" == "--help" ]] \
+    && printf "usage: %s [filename]\ndefault filename is %s\n" \
+    "$0" "$HOME/.config/chromium/Default/Bookmarks" && exit 0
+
+[[ -r "$1" ]] || set -- "$HOME/.config/chromium/Default/Bookmarks"
+printf -- "using file: %s\n" "$1" >&2
+
+previd="name"
+preval=
+
+while IFS+=':' read -r key value; do
+    value="${value%%,}"
+    if [[ $key == "name" ]]; then
+        if [[ $previd == "name" ]]; then
+            printf -- "\n%s\n\n" "---"
+            printf -- "%s\n" "$value" "---"
+            printf -- "\n%s\n\n" "---"
+        elif [[ -n $preval ]]; then
+            [[ -z $value ]] && value="$preval"
+            printf -- "* [%b](%s)\n" "$value" "$preval"
+        fi
+    else #elif [[ $key == "url" ]]; then
+        preval="$value"
+    fi
+    previd="$key"
+done < <(grep "\(name\|url\)\":" "$1" | awk '{gsub(/[[:blank:]]*"/, "");
+                            a[i++]=$0} END {while (i--) print a[i-1]}')
+
