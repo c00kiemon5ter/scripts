@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# a script to create a proper html file
+# with chromium and dwb's bookmarks
+
+[[ "$1" == "-h" || "$1" == "--help" ]] \
+    && printf -- "usage: %s [markdown-parser]\n" "$0" \
+    && exit 0
+
+markdown="${1:-Markdown.pl}"
+
+cat <<EOF
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Personal bookmarks</title>
+    </head>
+    <body>
+EOF
+
+dwbbmarks2mdown | "$markdown"
+chrbmarks2mdown | "$markdown"
+
+cat <<EOF
+
+    </body>
+</html>
+EOF
+
