@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# a script to convert dwb bookmarks to markdown
+
+d="$HOME/.config/dwb/default/bookmarks"
+
+[[ "$1" == "-h" || "$1" == "--help" ]] \
+    && printf "usage: %s [filename]\ndefault filename is %s\n" "$0" "$d" \
+    && exit 0
+
+[[ -r "$1" ]] && d="$1"
+printf -- "using file: %s\n" "$d" >&2
+
+printf -- "\n%s\n\n" "---"
+printf -- "%s\n" "dwb bookmarks" "---"
+printf -- "\n%s\n\n" "---"
+
+while read -r url title; do
+    printf -- "* [%s](%s)\n" "$title" "$url"
+done < "$d"
+
+

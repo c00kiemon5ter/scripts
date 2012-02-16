@@ -2,12 +2,14 @@
 # a script to convert chromium bookmarks
 # from json format to markdown
 
-[[ "$1" == "-h" || "$1" == "--help" ]] \
-    && printf "usage: %s [filename]\ndefault filename is %s\n" \
-    "$0" "$HOME/.config/chromium/Default/Bookmarks" && exit 0
+d="$HOME/.config/chromium/Default/Bookmarks"
 
-[[ -r "$1" ]] || set -- "$HOME/.config/chromium/Default/Bookmarks"
-printf -- "using file: %s\n" "$1" >&2
+[[ "$1" == "-h" || "$1" == "--help" ]] \
+    && printf "usage: %s [filename]\ndefault filename is %s\n" "$0" "$d" \
+    && exit 0
+
+[[ -r "$1" ]] && d="$1"
+printf -- "using file: %s\n" "$d" >&2
 
 previd="name"
 preval=
@@ -27,6 +29,6 @@ while IFS+=':' read -r key value; do
         preval="$value"
     fi
     previd="$key"
-done < <(grep "\(name\|url\)\":" "$1" | awk '{gsub(/[[:blank:]]*"/, "");
+done < <(grep "\(name\|url\)\":" "$d" | awk '{gsub(/[[:blank:]]*"/, "");
                             a[i++]=$0} END {while (i--) print a[i-1]}')
 
