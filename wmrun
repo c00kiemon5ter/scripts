@@ -9,7 +9,6 @@ done | dzen2 -h 18 -w 1520 -x 400 -ta r -e -p -fn "-misc-terminusmod.icons-mediu
 [[ -p $ff ]] || mkfifo -m 600 "$ff"
 ds=("web" "dev" "foo")
 ms=("T" "M" "B" "G" "F")
-fn="-xos4-terminus-medium-r-normal--12-120-72-72-c-60-*-*"
 while read -r; do
     [[ $REPLY =~ ^(([[:digit:]]+:)+[[:digit:]]+ ?)+$ ]] && read -ra desktops <<< "$REPLY" || continue
     for desktop in "${desktops[@]}"; do
@@ -19,6 +18,6 @@ while read -r; do
         r+="^fg($fg) ${ds[$d]} ${w/#0/^fg(#454545)∅} ^fg()"
     done
     printf "%s ^fg(#ff420e)[%s^fg(#ff420e)]^fg()\n" "$r" "^fg(#579d1c)$i" && unset r
-done < "$ff" | dzen2 -h 18 -w 400 -ta l -e -p -fn "$fn" &
+done < "$ff" | dzen2 -h 18 -w 400 -ta l -e -p -fn "-xos4-terminus-medium-r-normal--12-120-72-72-c-60-*-*" &
 
-while :; do "$wm" || break; done | tee -a "$ff"
+$wm | tee -a "$ff"
