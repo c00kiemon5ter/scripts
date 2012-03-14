@@ -3,21 +3,23 @@
 : "${wm:=monsterwm}"
 : "${ff:="/tmp/${wm}.fifo"}"
 
-while sleep 1; do statusbar
-done | dzen2 -h 18 -w 1520 -x 400 -ta r -e -p -fn "-misc-terminusmod.icons-medium-r-normal--12-120-72-72-c-60-*-*" &
-
 [[ -p $ff ]] || mkfifo -m 600 "$ff"
 ds=("web" "dev" "foo")
 ms=("T" "M" "B" "G" "F")
-while read -r; do
-    [[ $REPLY =~ ^(([[:digit:]]+:)+[[:digit:]]+ ?)+$ ]] && read -ra desktops <<< "$REPLY" || continue
-    for desktop in "${desktops[@]}"; do
-        IFS=':' read -r d w m c u <<< "$desktop"
-        ((c)) && fg="#ff950e" i="${ms[$m]}" || fg="#579d1c"
-        ((u)) && w+='^fg(#ff420e)!'
-        r+="^fg($fg) ${ds[$d]} ${w/#0/^fg(#454545)∅} ^fg()"
-    done
-    printf "%s ^fg(#ff420e)[%s^fg(#ff420e)]^fg()\n" "$r" "^fg(#579d1c)$i" && unset r
-done < "$ff" | dzen2 -h 18 -w 400 -ta l -e -p -fn "-xos4-terminus-medium-r-normal--12-120-72-72-c-60-*-*" &
+
+some_sorta_bar &
+
+while read -t 60 -r wmout || true; do
+    if [[ $wmout =~ ^(([[:digit:]]+:)+[[:digit:]]+ ?)+$ ]]; then
+        read -ra desktops <<< "$wmout" && unset r
+        for desktop in "${desktops[@]}"; do
+            IFS=':' read -r d w m c u <<< "$desktop"
+            ((c)) && fg="&4" i="${ms[$m]}" || fg="&3"
+            ((u)) && w+='&5!'
+            r+="$fg${ds[$d]} ${w/#0/&8¡} "
+        done
+    fi
+    xsetroot -name "&L$r &5[&3$i&5] &R$(statusbar)"
+done < "$ff" &
 
 $wm | tee -a "$ff"

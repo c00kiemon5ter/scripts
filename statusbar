@@ -3,7 +3,7 @@
 mute="$(amixer get Master | sed -nr '$ s:.*\[(.+)]$:\1:p')"
 vol="$(amixer get PCM | sed -nr '$ s:.*\[(.+%)].*:\1:p')"
 { [[ ${mute} == "off" ]] && vstat="ë"; } || \
-{ (( ${vol%\%} <= 50  )) && vstat="ì"; } || vstat="í"
+{ (( ${vol%\%} <= 25  )) && vstat="ì"; } || vstat="í"
 
 wifi="$(wireless_status)" wstat="¤"
 
@@ -15,13 +15,7 @@ music="$(mpc current)"
 
 date="$(date +"%a %d/%m %R")" dstat="¾"
 
-    printf "\
-^fg(#ff420e)%s ^fg(#579d1c)%s  \
-^fg(#ff420e)%s ^fg(#579d1c)%s  \
-^fg(#ff420e)%s ^fg(#579d1c)%s  \
-^fg(#ff420e)%s ^fg(#579d1c)%s \n"     \
-    "${mstat}" "${music:-[stopped]}"  \
-    "${wstat}" "${wifi}"              \
-    "${vstat}" "${vol}"               \
-    "${dstat}" "${date}"
+printf "&5%s &3%s &5%s &3%s &5%s &3%s &5%s &3%s "         \
+    "${mstat}" "${music:-[stopped]}" "${wstat}" "${wifi}" \
+    "${vstat}" "${vol}" "${dstat}" "${date}"
 
