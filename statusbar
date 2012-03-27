@@ -15,7 +15,5 @@ music="$(mpc current)"
 
 date="$(date +"%a %d/%m %R")" dstat="¾"
 
-printf "&5%s &3%s &5%s &3%s &5%s &3%s &5%s &3%s "         \
-    "${mstat}" "${music:-[stopped]}" "${wstat}" "${wifi}" \
-    "${vstat}" "${vol}" "${dstat}" "${date}"
+printf "&3%s &5| &3%s &5| &3%s &5| &3%s \n" "${music:-[stopped]}" "${wifi}" "${vol}" "${date}"
 

@@ -4,7 +4,7 @@
 : "${ff:="/tmp/${wm}.fifo"}"
 
 [[ -p $ff ]] || mkfifo -m 600 "$ff"
-ds=("web" "dev" "foo")
+ds=("web" "dev" "foo" "null")
 ms=("T" "M" "B" "G" "F")
 
 some_sorta_bar &
@@ -16,10 +16,10 @@ while read -t 60 -r wmout || true; do
             IFS=':' read -r d w m c u <<< "$desktop"
             ((c)) && fg="&4" i="${ms[$m]}" || fg="&3"
             ((u)) && w+='&5!'
-            r+="$fg${ds[$d]} ${w/#0/&8¡} "
+            r+="$fg${ds[$d]} ${w/#0/&8-} "
         done
     fi
-    xsetroot -name "&L$r &5[&3$i&5] &R$(statusbar)"
+    xsetroot -name "&L$r&5[&3$i&5] &R$(statusbar)"
 done < "$ff" &
 
 $wm | tee -a "$ff"
