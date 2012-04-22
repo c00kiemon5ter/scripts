@@ -1,19 +1,29 @@
 #!/usr/bin/env bash
 
+separator="\u19"
+
+# volume
 mute="$(amixer get Master | sed -nr '$ s:.*\[(.+)]$:\1:p')"
 vol="$(amixer get PCM | sed -nr '$ s:.*\[(.+%)].*:\1:p')"
-{ [[ ${mute} == "off" ]] && vstat="ë"; } || \
-{ (( ${vol%\%} <= 25  )) && vstat="ì"; } || vstat="í"
+{ [[ ${mute} == "off" ]] && vstat="\uEB"; } || \
+{ (( ${vol%\%} <= 20  )) && vstat="\uEC"; } || vstat="\uED"
 
-wifi="$(wireless_status)" wstat="¤"
+wifi="$(wireless_status)" wstat="\uA4"
 
-music="$(mpc current)"
-{ [[ -z "${music}" ]] && mstat="å"; } || \
+# now playing music
+music="$(mpc current | sed 's/\([^-]\+\) - \(.*\)/\2 \&8by\&3 \1/')"
+{ [[ -z "${music}" ]] && music="[stopped]" mstat="\uE5"; } || \
 { mstat="$(mpc | sed -rn '2s/\[([[:alpha:]]+)].*/\1/p')"
-  [[ "${mstat}" == "paused" ]] && mstat="ç" || mstat="ê"
+  [[ "${mstat}" == "paused" ]] && mstat="\uE7" || mstat="\uEA"
 }
 
-date="$(date +"%a %d/%m %R")" dstat="¾"
+# date and time
+date="$(date +"%a %d/%m %R")" dstat="\uC9"
 
-printf "&3%s &5| &3%s &5| &3%s &5| &3%s \n" "${music:-[stopped]}" "${wifi}" "${vol}" "${date}"
+# print it colored and formatted
+printf "&8%b &4%b &3%s " \
+    "${separator}" "${mstat}" "${music}" \
+    "${separator}" "${wstat}" "${wifi}"  \
+    "${separator}" "${vstat}" "${vol}"   \
+    "${separator}" "${dstat}" "${date}"
 
