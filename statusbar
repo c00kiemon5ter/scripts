@@ -11,7 +11,7 @@ vol="$(amixer get PCM | sed -nr '$ s:.*\[(.+%)].*:\1:p')"
 wifi="$(wireless_status)" wstat="\uA4"
 
 # now playing music
-music="$(mpc current | sed 's/\([^-]\+\) - \(.*\)/\2 \&8by\&3 \1/')"
+music="$(mpc current -f "%title% #&8by #&3%artist%")"
 { [[ -z "${music}" ]] && music="[stopped]" mstat="\uE5"; } || \
 { mstat="$(mpc | sed -rn '2s/\[([[:alpha:]]+)].*/\1/p')"
   [[ "${mstat}" == "paused" ]] && mstat="\uE7" || mstat="\uEA"
