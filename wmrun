@@ -7,8 +7,6 @@
 ds=("web" "dev" "foo" "null")
 ms=("T" "M" "B" "G" "F")
 
-some_sorta_bar &
-
 while read -t 60 -r wmout || true; do
     if [[ $wmout =~ ^(([[:digit:]]+:)+[[:digit:]]+ ?)+$ ]]; then
         read -ra desks <<< "$wmout" && unset out
@@ -20,7 +18,7 @@ while read -t 60 -r wmout || true; do
             out+=("$o")
         done
     fi
-    xsetroot -name "&L${out[@]}&5[&3$i&5] &R$(statusbar)"
-done < "$ff" &
+    printf -- " &L%s&R%s\n" "${out[@]}&5[&3$i&5]" "$(statusbar)"
+done < "$ff" | some_sorta_bar &
 
 $wm | tee -a "$ff"
