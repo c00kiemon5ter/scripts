@@ -5,23 +5,29 @@ separator="\u19"
 # volume
 mute="$(amixer get Master | sed -nr '$ s:.*\[(.+)]$:\1:p')"
 vol="$(amixer get PCM | sed -nr '$ s:.*\[(.+%)].*:\1:p')"
-{ [[ ${mute} == "off" ]] && vstat="\uEB"; } || \
-{ (( ${vol%\%} <= 20  )) && vstat="\uEC"; } || vstat="\uED"
+#{ [[ ${mute} == "off" ]] && vstat="\uEB"; } || \
+{ [[ ${mute} == "off" ]] && vstat="ë"; } || \
+#{ (( ${vol%\%} <= 20  )) && vstat="\uEC"; } || vstat="\uED"
+{ (( ${vol%\%} <= 20  )) && vstat="ì"; } || vstat="í"
 
-wifi="$(wireless_status)" wstat="\uA4"
+#wifi="$(wireless_status)" wstat="\uA4"
+wifi="$(wireless_status)" wstat="¤"
 
 # now playing music
 music="$(mpc current -f "%title% #&8by #&3%artist%")"
-{ [[ -z "${music}" ]] && music="[stopped]" mstat="\uE5"; } || \
+#{ [[ -z "${music}" ]] && music="[stopped]" mstat="\uE5"; } || \
+{ [[ -z "${music}" ]] && music="[stopped]" mstat="å"; } || \
 { mstat="$(mpc | sed -rn '2s/\[([[:alpha:]]+)].*/\1/p')"
-  [[ "${mstat}" == "paused" ]] && mstat="\uE7" || mstat="\uEA"
+  #[[ "${mstat}" == "paused" ]] && mstat="\uE7" || mstat="\uEA"
+  [[ "${mstat}" == "paused" ]] && mstat="ç" || mstat="ê"
 }
 
 # date and time
-date="$(date +"%a %d/%m %R")" dstat="\uC9"
+#date="$(date +"%a %d/%m %R")" dstat="\uC9"
+date="$(date +"%a %d/%m %R")" dstat="É"
 
 # print it colored and formatted
-printf "&8%b &4%b &3%s " \
+printf "&8%b &4%b &3%s "                 \
     "${separator}" "${mstat}" "${music}" \
     "${separator}" "${wstat}" "${wifi}"  \
     "${separator}" "${vstat}" "${vol}"   \
