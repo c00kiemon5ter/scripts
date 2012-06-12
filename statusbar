@@ -27,7 +27,7 @@ music="$(mpc current -f "%title% #&8by #&3%artist%")"
 date="$(date +"%a %d/%m %R")" dstat="É"
 
 # print it colored and formatted
-printf "&8%b &4%b &3%s "                 \
+printf "&8%b &4%b &3%s"                  \
     "${separator}" "${mstat}" "${music}" \
     "${separator}" "${wstat}" "${wifi}"  \
     "${separator}" "${vstat}" "${vol}"   \
