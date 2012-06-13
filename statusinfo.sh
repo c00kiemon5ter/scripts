@@ -3,7 +3,6 @@
 # prints formatted output to be used as input for some_sorta_bar
 
 # desktop status
-set -- $1
 for desk; do
     d="${desk%%:*}" desk="${desk#*:}" # desktop id
     w="${desk%%:*}" desk="${desk#*:}" # window count

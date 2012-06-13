@@ -6,7 +6,7 @@
 
 while read -t 60 -r line || true; do
     echo "$line" | grep -Ex "(([[:digit:]]+:)+[[:digit:]]+ ?)+" && prev="$line" || line=
-    statusinfo.sh "${line:-"$prev"}"
+    statusinfo.sh ${line:-$prev}
 done < "$ff" | some_sorta_bar &
 
 "$wm" | tee -a "$ff"
