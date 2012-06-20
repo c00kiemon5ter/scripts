@@ -1,20 +1,20 @@
 #!/usr/bin/env bash
 # Ivan c00kiemon5ter Kanakarakis (ivan.kanak@gmail.com)
-# all cookies reserved (C) 
+# all cookies reserved (C)
 
-[[ "$1" == "help" ]] && command="commands" || command="$*"
+[[ "$1" == "help" ]] && cmd="commands" || cmd="$@"
 [[ -t 1 ]] && {   okmsg="$(tput setaf 12)::$(tput sgr0) %s\n";
                   errmsg="$(tput setaf 9)==>$(tput sgr0)%s\n"; } \
-           || {   okmsg=":: %s\n"; errmsg="==>%s\n"; }
+           || {   errmsg="==>%s\n"; okmsg=":: %s\n"; }
 
 { exec 3<>/dev/tcp/localhost/6600; } &>/dev/null || \
 { printf "$errmsg" " mpd is not running" >&2; exit 1; }
 
-printf "%s\n%s\n" "$command" "close" >&3
+printf "%s\n" "$cmd" "close" >&3
 
 read -u 3 header
-while IFS="}" read -u 3 REPLY error; do
-    [[ -z "$error" ]] && printf "$okmsg" "$REPLY" \
+while IFS="}" read -u 3 mesg error; do
+    [[ -z "$error" ]] && printf "$okmsg" "$mesg" \
     || { printf "$errmsg" "$error" >&2 && exit 1; }
 done
 
