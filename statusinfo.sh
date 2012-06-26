@@ -17,7 +17,7 @@ for desk; do
         0) l="T" ;; 1) l="M" ;; 2) l="B" ;;
         3) l="G" ;; 4) l="#" ;; 5) l="F" ;;
     esac || fg="&9"
-    [ $w -eq 0 ] && w="&8-"; [ $u -ne 0 ] && w="$w&5!"
+    [ $w -eq 0 ] && w="&8-"; [ $u -ne 0 ] && w="$w&9!"
     left="$left$fg$d $w &8:: "
 done
 
