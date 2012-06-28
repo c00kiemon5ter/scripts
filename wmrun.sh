@@ -13,4 +13,4 @@ done < "$ff" | some_sorta_bar &
 # run mopag
 #mopag < "$ff" &
 
-"$wm" | tee -a "$ff"
+"$wm" > "$ff"
