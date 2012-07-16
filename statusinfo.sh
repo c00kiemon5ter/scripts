@@ -1,6 +1,7 @@
 #!/usr/bin/env sh
 # expects a line from monsterwm's output as argument ("$1")
-# prints formatted output to be used as input for some_sorta_bar
+# prints formatted output to be used as input for bar
+# reference: bar by LemonBoy -- https://github.com/LemonBoy/bar
 
 # desktop status
 for desk; do
@@ -13,35 +14,34 @@ for desk; do
         0) d="web" ;; 1) d="dev" ;;
         2) d="foo" ;; 3) d="nil" ;;
     esac
-    [ $c -ne 0 ] && fg="&5" && case "$m" in
+    [ $c -ne 0 ] && fg="\f5" && case "$m" in
         0) l="T" ;; 1) l="M" ;; 2) l="B" ;;
         3) l="G" ;; 4) l="#" ;; 5) l="F" ;;
-    esac || fg="&9"
-    [ $w -eq 0 ] && w="&8-"; [ $u -ne 0 ] && w="$w&9!"
-    left="$left$fg$d $w &8:: "
+    esac || fg="\f9"
+    [ $w -eq 0 ] && w="\f8-"; [ $u -ne 0 ] && w="$w\f9!"
+    left="$left$fg$d $w \f8:: "
 done
 
 # music status
-music="$(mpc current -f "%title% #&8by #&9%artist%")"
-if [ -z "$music" ]; then music="[stopped]" mstat="å"
+music="$(mpc current -f "%title% #\f8by #\f9%artist%")"
+if [ -z "$music" ]; then music="[stopped]" mstat="\uE5"
 else
     mstat="$(mpc | sed -rn '2s/\[([[:alpha:]]+)].*/\1/p')"
-    [ "$mstat" == "paused" ] && mstat="ç" || mstat="ê"
+    [ "$mstat" == "paused" ] && mstat="\uE7" || mstat="\uEA"
 fi
 
 # volume status
 if [ "$(amixer get Master | sed -nr '$ s:.*\[(.+)]$:\1:p')" == "off" ]
-then vstat="ë"
+then vstat="\uEB"
 else
     vol="$(amixer get PCM | sed -nr '$ s:.*\[(.+%)].*:\1:p')"
-    if [ "${vol%\%}" -le 20 ]; then vstat="ì"; else vstat="í"; fi
+    if [ "${vol%\%}" -le 20 ]; then vstat="\uEC"; else vstat="\uED"; fi
 fi
 
 # date and time
-date="$(date +"%a %d/%m %R")" dstat="É"
+date="$(date +"%a %d/%m %R")" dstat="\uC9"
 
-# right status info
-right="&5$mstat &9$music  &5$vstat &9$vol  &5$dstat &9$date"
-
-printf "&L%s&R%s\n" "$left&9[ &5$l&9 ]" "$right"
+printf " \\\l%s \\\f9[ \\\f5%s\\\f9 ] \\\r" "$left" "$l"
+printf " \\\f5%b \\\f9%s" "$mstat" "$music" "$vstat" "$vol" "$dstat" "$date"
+printf "\n"
 

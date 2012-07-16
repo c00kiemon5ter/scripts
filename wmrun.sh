@@ -8,7 +8,7 @@
 while read -t 60 -r line || true; do
     echo "$line" | grep -Ex "(([[:digit:]]+:)+[[:digit:]]+ ?)+" 2>/dev/null 1>&2 && prev="$line" || line=
     statusinfo.sh ${line:-$prev}
-done < "$ff" | some_sorta_bar &
+done < "$ff" | bar &
 
 # run mopag
 #mopag < "$ff" &
