@@ -24,24 +24,24 @@ done
 
 # music status
 music="$(mpc current -f "%title% #\f8by #\f9%artist%")"
-if [ -z "$music" ]; then music="[stopped]" mstat="\uE5"
+if [ -z "$music" ]; then music="[stopped]" mstat="å"
 else
     mstat="$(mpc | sed -rn '2s/\[([[:alpha:]]+)].*/\1/p')"
-    [ "$mstat" == "paused" ] && mstat="\uE7" || mstat="\uEA"
+    [ "$mstat" == "paused" ] && mstat="ç" || mstat="ê"
 fi
 
 # volume status
 if [ "$(amixer get Master | sed -nr '$ s:.*\[(.+)]$:\1:p')" == "off" ]
-then vstat="\uEB"
+then vol="[muted]" vstat="ë"
 else
     vol="$(amixer get PCM | sed -nr '$ s:.*\[(.+%)].*:\1:p')"
-    if [ "${vol%\%}" -le 20 ]; then vstat="\uEC"; else vstat="\uED"; fi
+    if [ "${vol%\%}" -le 20 ]; then vstat="ì"; else vstat="í"; fi
 fi
 
 # date and time
-date="$(date +"%a %d/%m %R")" dstat="\uC9"
+date="$(date +"%a %d/%m %R")" dstat="É"
 
 printf " \\\l%s \\\f9[ \\\f5%s\\\f9 ] \\\r" "$left" "$l"
-printf " \\\f5%b \\\f9%s" "$mstat" "$music" "$vstat" "$vol" "$dstat" "$date"
+printf " \\\f5%s \\\f9%s" "$mstat" "$music" "$vstat" "$vol" "$dstat" "$date"
 printf "\n"
 
