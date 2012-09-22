@@ -13,20 +13,30 @@ for desk; do
     c="${desk%%:*}" desk="${desk#*:}" # is current desktop
     u="$desk"                         # has urgent hint
 
+    # desktop id
     case "$d" in
         0) d="" ;; 1) d="" ;;
         2) d="" ;; 3) d="" ;;
     esac
 
-    [ $n -ne 0 -a $c -ne 0 ] && bg="\b9" fg="\f0" && case "$l" in
-        0) s="T" ;; 1) s="M" ;; 2) s="B" ;;
-        3) s="G" ;; 4) s="#" ;; 5) s="F" ;;
-    esac || { [ $c -ne 0 ] && bg="\b7" fg="\f9" || bg="\b0" fg="\f9"; }
+    # current desktop on active monitor
+    if [ $n -ne 0 -a $c -ne 0 ]
+    then bg="\b2" un="\u2"
+        case "$l" in
+            0) s="T" ;; 1) s="M" ;; 2) s="B" ;;
+            3) s="G" ;; 4) s="#" ;; 5) s="F" ;;
+        esac && s="[ \f3$s\fr ]"
+    # current desktop on inactive monitor
+    elif [ $c -ne 0 ]
+    then fg="\f0" bg="\b1" un="\u1"
+    fi
 
-    [ $u -ne 0 ] && un="\u5" || un="\ur"
-    [ $w -eq 0 ] && w="\f8-"
+    # has urgent hint or no windows
+    [ $u -ne 0 ] && un="\u3"
+    [ $w -eq 0 ] && w="\f6-"
 
     left="$left$bg$fg$un $d $w \ur\br\fr"
+    unset bg fg un
 done
 
 # music status
@@ -49,7 +59,7 @@ fi
 # date and time
 date="$(date +"%a %d/%m %R")" dstat=""
 
-printf " \\\l%s \\\f9[ \\\f5%s\\\f9 ] \\\r" "$left" "$s"
-printf " \\\b4 \\\f1%s\\\fr \\\br %s" "$mstat" "$music" "$vstat" "$vol" "$dstat" "$date"
-printf "\n"
+printf '%s %s %s' "$left" "$s" "\r"
+printf ' \\u2\\b2 %s \\br\\ur %s' "$mstat" "$music" "$vstat" "$vol" "$dstat" "$date"
+printf '\n'
 
