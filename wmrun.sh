@@ -6,7 +6,7 @@
 
 # spawn a statusbar
 while read -t 60 -r line || true; do
-    echo "$line" | grep -Ex "(([[:digit:]]+:)+[[:digit:]]+ ?)+" 2>/dev/null 1>&2 && prev="$line" || line=
+    echo "$line" | grep -qEx "(([[:digit:]]+:){4,6}[[:digit:]]+ ?)+" && prev="$line" || line=
     statusinfo.sh ${line:-$prev}
 done < "$ff" | bar &
 
