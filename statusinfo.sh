@@ -35,7 +35,12 @@ for desk; do
     [ $u -ne 0 ] && un="\u3"
     [ $w -eq 0 ] && w="\f0-"
 
-    left="$left$bg$fg$un $d $w \ur\br\fr"
+    if [ "$m" -eq 0 ]
+    then mr="$mr$bg$fg$un $d $w \ur\br\fr"
+    elif [ "$m" -eq 1 ]
+	then ml="$ml$bg$fg$un $d $w \ur\br\fr"
+    fi
+
     unset bg fg un
 done
 
@@ -59,7 +64,7 @@ fi
 # date and time
 date="$(date +"%a %d/%m %R")" dstat=""
 
-printf '%s %s %s' "$left" "$s" "\r"
+printf '%s %s %s' "$ml$mr" "$s" "\r"
 printf ' \\u2\\b2 %s \\br\\ur %s' "$mstat" "$music" "$vstat" "$vol" "$dstat" "$date"
 printf '\n'
 
