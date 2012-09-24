@@ -28,7 +28,7 @@ for desk; do
         esac && s="\u2\b2 [$s] \br\ur"
     # current desktop on inactive monitor
     elif [ $c -ne 0 ]
-    then fg="\f0" bg="\b1" un="\u1"
+    then bg="\b4" un="\u4"
     fi
 
     # has urgent hint or no windows
