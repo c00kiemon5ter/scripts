@@ -25,7 +25,7 @@ for desk; do
         case "$l" in
             0) s="T" ;; 1) s="M" ;; 2) s="B" ;;
             3) s="G" ;; 4) s="#" ;; 5) s="F" ;;
-        esac && s="[ \f3$s\fr ]"
+        esac && s="\u2\b2 [$s] \br\ur"
     # current desktop on inactive monitor
     elif [ $c -ne 0 ]
     then fg="\f0" bg="\b1" un="\u1"
