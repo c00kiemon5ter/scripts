@@ -33,7 +33,7 @@ for desk; do
 
     # has urgent hint or no windows
     [ $u -ne 0 ] && un="\u3"
-    [ $w -eq 0 ] && w="\f6-"
+    [ $w -eq 0 ] && w="\f0-"
 
     left="$left$bg$fg$un $d $w \ur\br\fr"
     unset bg fg un
