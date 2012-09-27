@@ -1,0 +1,10 @@
+#!/bin/sh
+
+for f in "$@"
+do
+	shift
+	set -- "$@" *"$f"*
+done
+
+"${EDITOR:-vi}" "$@"
+
