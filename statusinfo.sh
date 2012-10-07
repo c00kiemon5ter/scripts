@@ -45,7 +45,7 @@ for desk; do
 done
 
 # music status
-music="$(mpc current -f "%title% #\f9by#\fr %artist%")"
+music="$(mpc current -f "[%title%|%file%] #\f9by#\fr %artist%")"
 if [ -z "$music" ]; then music="[stopped]" mstat=""
 else
     mstat="$(mpc | sed -rn '2s/\[([[:alpha:]]+)].*/\1/p')"
