@@ -6,11 +6,11 @@ slog="$HOME/.lsyncd/scripts.sync.log"
 
 mdir="$HOME/music/"
 pdir="$HOME/projects/"
-sdir="$HOME/.bin/"
+sdir="$HOME/bin/"
 
-smdir="$HOME/data/music/syncd_music/"
-spdir="$HOME/data/projects/syncd_projects/"
-ssdir="$HOME/data/projects/syncd_scripts/"
+smdir="/mnt/data/music/syncd_music/"
+spdir="/mnt/data/projects/syncd/projects/"
+ssdir="/mnt/data/projects/syncd/scripts/"
 
 pkill -u "$USER" lsyncd
 lsyncd --logfile "$mlog" -rsync "$mdir" "$smdir" &
