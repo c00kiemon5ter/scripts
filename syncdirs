@@ -13,7 +13,7 @@ spdir="/mnt/data/projects/syncd/projects/"
 ssdir="/mnt/data/projects/syncd/scripts/"
 
 pkill -u "$USER" lsyncd
-lsyncd --logfile "$mlog" -rsync "$mdir" "$smdir" &
-lsyncd --logfile "$plog" -rsync "$pdir" "$spdir" &
-lsyncd --logfile "$slog" -rsync "$sdir" "$ssdir" &
+lsyncd -log scarce -logfile "$mlog" -rsync "$mdir" "$smdir" &
+lsyncd -log scarce -logfile "$plog" -rsync "$pdir" "$spdir" &
+lsyncd -log scarce -logfile "$slog" -rsync "$sdir" "$ssdir" &
 
