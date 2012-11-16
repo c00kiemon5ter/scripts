@@ -3,7 +3,7 @@
 xidf="/tmp/.tabbed.xid"
 test -r "$xidf" && read -r -- xid <"$xidf"
 
-if test -n "$xid" && xprop -id "$xid" &>/dev/null
+if test -n "$xid" && xprop -id "$xid" 2>&1 1>/dev/null
 then surf -e "$((xid))" "$1" &
 else tabbed -d surf -e >"$xidf" && "$0" "$1"
 fi
