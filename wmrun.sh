@@ -2,7 +2,9 @@
 
 : "${wm:=monsterwm}"
 : "${ff:="/tmp/${wm}.fifo"}"
-[ -p "$ff" ] || mkfifo -m 600 "$ff"
+
+trap 'rm -f "$ff"' TERM INT EXIT
+[ -p "$ff" ] || { rm -f "$ff"; mkfifo -m 600 "$ff"; }
 
 # spawn a statusbar
 while read -t 60 -r line || true; do
