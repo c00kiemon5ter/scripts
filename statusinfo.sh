@@ -11,7 +11,8 @@ for desk; do
     w="${desk%%:*}" desk="${desk#*:}" # window count
     l="${desk%%:*}" desk="${desk#*:}" # layout mode
     c="${desk%%:*}" desk="${desk#*:}" # is current desktop
-    u="$desk"                         # has urgent hint
+    u="${desk%%|*}" desk="${desk#*|}" # has urgent hint
+    t="${desk#0}"                     # finally the title
 
     # desktop id
     case "$d" in
@@ -38,7 +39,7 @@ for desk; do
     if [ "$m" -eq 0 ]
     then mr="$mr$bg$fg$un $d $w \ur\br\fr"
     elif [ "$m" -eq 1 ]
-	then ml="$ml$bg$fg$un $d $w \ur\br\fr"
+    then ml="$ml$bg$fg$un $d $w \ur\br\fr"
     fi
 
     unset bg fg un
@@ -64,7 +65,7 @@ fi
 # date and time
 date="$(date +"%a %d/%m %R")" dstat=""
 
-printf '%s %s %s' "$ml$mr" "$s" "\r"
+printf '%s %s %s %s' "$ml\u6\b6 \br\ur$mr" "$s" "$t" "\r"
 printf ' \\u2\\b2 %s \\br\\ur %s' "$mstat" "$music" "$vstat" "$vol" "$dstat" "$date"
 printf '\n'
 

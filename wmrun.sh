@@ -8,7 +8,7 @@ trap 'rm -f "$ff"' TERM INT EXIT
 
 # spawn a statusbar
 while read -t 60 -r line || true; do
-    echo "$line" | grep -qEx "(([[:digit:]]+:){4,6}[[:digit:]]+ ?)+" && prev="$line" || line=
+    echo "$line" | grep -qEx "(([[:digit:]]+:){4,6}[[:digit:]]+ ?)+[|]?.*" && prev="$line" || line=
     statusinfo.sh ${line:-$prev}
 done < "$ff" | bar &
 
